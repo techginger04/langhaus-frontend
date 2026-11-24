@@ -137,156 +137,46 @@ export default function MenuCategory() {
     loadCard();
   };
 
-  const downloadPDF = () => {
-    if (!cardData?.categories?.length) return;
-  
-    const pdf = new jsPDF("p", "mm", "a4");
-  
-    const black = [25, 25, 25];
-    const gold = [170, 130, 60];
-    const gray = [120, 120, 120];
-  
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-  
-    let y = 35;
-  
-    // =========================
-    // HEADER (Fine Dining Style)
-    // =========================
-    pdf.setFillColor(...black);
-    pdf.rect(0, 0, pageWidth, 45, "F");
-  
-    pdf.setFont("helvetica", "bold");
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(28);
-  
-    pdf.text(cardData.card?.name || "SPEISEKARTE", pageWidth / 2, 20, {
-      align: "center"
-    });
-  
-    pdf.setFontSize(11);
-    pdf.setTextColor(220, 220, 220);
-  
-    pdf.text("Restaurant Langhaus", pageWidth / 2, 30, {
-      align: "center"
-    });
-  
-    pdf.setFontSize(9);
-    pdf.text("Frisch • Regional • Hausgemacht", pageWidth / 2, 37, {
-      align: "center"
-    });
-  
-    y = 55;
-  
-    // =========================
-    // CATEGORIES
-    // =========================
-    cardData.categories.forEach((cat) => {
-      if (!cat?.items?.length) return;
-  
-      if (y > 240) {
-        pdf.addPage();
-        y = 20;
+
+const downloadPDF = async () => {
+  try {
+    const response = await axios.get(
+      `${API}/cards/${cardId}/pdf`,
+      {
+        responseType: "blob",
+        headers: token
+          ? { Authorization: `Bearer ${token}` }
+          : {}
       }
-  
-      // CATEGORY TITLE BAR
-      pdf.setFillColor(...gold);
-      pdf.roundedRect(14, y - 6, pageWidth - 28, 10, 2, 2, "F");
-  
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(13);
-      pdf.setTextColor(255, 255, 255);
-  
-      pdf.text(cat.name.toUpperCase(), pageWidth / 2, y, {
-        align: "center"
-      });
-  
-      y += 14;
-  
-      // =========================
-      // ITEMS (Restaurant Layout)
-      // =========================
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(10);
-  
-      cat.items.forEach((item) => {
-        if (y > 270) {
-          pdf.addPage();
-          y = 20;
-        }
-  
-        const name = item.name || "";
-        const desc = item.zutaten || "";
-        const price = `CHF ${Number(item.preis || 0).toFixed(2)}`;
-  
-        // LEFT: NAME
-        pdf.setTextColor(30, 30, 30);
-        pdf.setFont("helvetica", "bold");
-        pdf.text(name, 14, y);
-  
-        // RIGHT: PRICE
-        pdf.setFont("helvetica", "bold");
-        pdf.text(price, pageWidth - 14, y, { align: "right" });
-  
-        y += 5;
-  
-        // DESCRIPTION (light gray)
-        if (desc) {
-          pdf.setFont("helvetica", "normal");
-          pdf.setTextColor(...gray);
-  
-          const split = pdf.splitTextToSize(desc, pageWidth - 28);
-          pdf.text(split, 14, y);
-  
-          y += split.length * 4;
-        }
-  
-        y += 4;
-  
-        // subtle line
-        pdf.setDrawColor(235, 235, 235);
-        pdf.line(14, y - 3, pageWidth - 14, y - 3);
-      });
-  
-      y += 8;
-    });
-  
-    // =========================
-    // FOOTER
-    // =========================
-    const pages = pdf.getNumberOfPages();
-  
-    for (let i = 1; i <= pages; i++) {
-      pdf.setPage(i);
-  
-      pdf.setFontSize(9);
-      pdf.setTextColor(...gray);
-  
-      pdf.text(
-        "Alle Preise inkl. MwSt. • Änderungen vorbehalten",
-        pageWidth / 2,
-        pageHeight - 10,
-        { align: "center" }
-      );
-  
-      pdf.text(
-        `Seite ${i} / ${pages}`,
-        pageWidth - 14,
-        pageHeight - 10,
-        { align: "right" }
-      );
-    }
-  
-    // =========================
-    // SAFE FILE NAME
-    // =========================
+    );
+
+    const blob = new Blob(
+      [response.data],
+      { type: "application/pdf" }
+    );
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
     const fileName = (cardData.card?.name || "speisekarte")
       .replace(/[^a-z0-9]/gi, "_")
       .toLowerCase();
-  
-    pdf.save(`${fileName}.pdf`);
-  };
+
+    link.href = url;
+    link.download = `${fileName}.pdf`;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error("PDF-Download fehlgeschlagen:", error);
+    alert("Die Speisekarte konnte nicht heruntergeladen werden.");
+  }
+};
+
     return (
       <div className="menu-card-view">
 

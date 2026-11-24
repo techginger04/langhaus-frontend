@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,352 +10,239 @@ import {
   faBars,
   faBook,
   faImage,
-  faCalendarCheck
+  faCalendarCheck,
+  faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
 import "./Navbar.scss";
 
+const API = "https://restaurant-langhaus-backend.onrender.com/api";
 
 function Navbar() {
-
   const [burgerMenuActive, setBurgerMenuActive] = useState(false);
+  const [angebotOpen, setAngebotOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [logoUrl, setLogoUrl] = useState(null);
+  const [cards, setCards] = useState([]);
 
   const navigate = useNavigate();
 
-
+  // Login-Status prüfen
   useEffect(() => {
-
     const token = localStorage.getItem("token");
-
     setIsLoggedIn(Boolean(token));
-
   }, []);
 
-
-
+  // Logo laden
   useEffect(() => {
-
     const fetchLogo = async () => {
-
       try {
-
-        const response = await axios.get(
-          "https://restaurant-langhaus-backend.onrender.com/api/logo"
-        );
-
-
+        const response = await axios.get(`${API}/logo`);
         setLogoUrl(response.data.logoUrl || null);
-
-
-      } catch(error){
-
-        console.error(
-          "Logo konnte nicht geladen werden",
-          error
-        );
-
+      } catch (error) {
+        console.error("Logo konnte nicht geladen werden", error);
       }
-
     };
-
 
     fetchLogo();
-
-
   }, []);
 
-
-
-
+  // Speisekarten automatisch aus der Datenbank laden
   useEffect(() => {
-
-
-    const closeMenu = (event)=>{
-
-
-      if(
-        burgerMenuActive &&
-        !event.target.closest(".navbar")
-      ){
-
-        setBurgerMenuActive(false);
-
+    const fetchCards = async () => {
+      try {
+        const response = await axios.get(`${API}/menu/cards`);
+        setCards(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error("Speisekarten konnten nicht geladen werden", error);
       }
-
     };
 
+    fetchCards();
+  }, []);
 
-    document.addEventListener(
-      "click",
-      closeMenu
-    );
-
-
-    return()=>{
-
-      document.removeEventListener(
-        "click",
-        closeMenu
-      );
-
+  // Menü schliessen, wenn ausserhalb geklickt wird
+  useEffect(() => {
+    const closeMenu = (event) => {
+      if (!event.target.closest(".navbar")) {
+        setBurgerMenuActive(false);
+        setAngebotOpen(false);
+      }
     };
 
+    document.addEventListener("click", closeMenu);
 
-  },[burgerMenuActive]);
+    return () => {
+      document.removeEventListener("click", closeMenu);
+    };
+  }, []);
 
+  const closeNavigation = () => {
+    setBurgerMenuActive(false);
+    setAngebotOpen(false);
+  };
 
-
-
-
-  const handleLogout = ()=>{
-
-
+  const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-
     setIsLoggedIn(false);
-
+    closeNavigation();
 
     navigate("/login");
-
-
   };
 
+  return (
+    <nav className={`navbar ${burgerMenuActive ? "open" : ""}`}>
+      <div className="navbar-container">
 
+        {/* LOGO */}
+        <div className="navbar-logo">
+          <NavLink to="/" onClick={closeNavigation}>
+            {logoUrl ? (
+              <img src={logoUrl} alt="Restaurant Langhaus Logo" />
+            ) : (
+              <span>Langhaus</span>
+            )}
+          </NavLink>
+        </div>
 
+        {/* BURGER */}
+        <button
+          className="burger-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setBurgerMenuActive(!burgerMenuActive);
+          }}
+          aria-label="Navigation öffnen"
+        >
+          <FontAwesomeIcon icon={faBars} />
+        </button>
 
+        {/* NAVIGATION */}
+        <ul className={`navbar-links ${burgerMenuActive ? "active" : ""}`}>
 
-return (
+          <NavbarItem
+            to="/"
+            text="Home"
+            icon={faHome}
+            close={closeNavigation}
+          />
 
-<nav className={`navbar ${burgerMenuActive ? "open" : ""}`}>
+          {/* RESERVATION */}
+          <li>
+            <a
+              href="https://www.lunchgate.ch/restaurant/langhaus/"
+              className="navbar-link"
+              onClick={closeNavigation}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FontAwesomeIcon icon={faCalendarCheck} />
+              <span>Reservation</span>
+            </a>
+          </li>
 
+          {/* ANGEBOT MIT DYNAMISCHEN KARTEN */}
+          <li className={`navbar-dropdown ${angebotOpen ? "dropdown-open" : ""}`}>
 
+            <button
+              className="navbar-link dropdown-toggle"
+              onClick={(e) => {
+                e.stopPropagation();
+                setAngebotOpen(!angebotOpen);
+              }}
+              aria-expanded={angebotOpen}
+            >
+              <FontAwesomeIcon icon={faBook} />
+              <span>Angebot</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className="dropdown-arrow"
+              />
+            </button>
 
-<div className="navbar-container">
+            <ul className="dropdown-menu">
 
+              <li>
+                <NavLink
+                  to="/cards"
+                  className="dropdown-link"
+                  onClick={closeNavigation}
+                >
+                  Alle Karten
+                </NavLink>
+              </li>
 
+              {cards.map((card) => (
+                <li key={card.id}>
+                  <NavLink
+                    to={`/cards/${card.id}`}
+                    className="dropdown-link"
+                    onClick={closeNavigation}
+                  >
+                    {card.name}
+                  </NavLink>
+                </li>
+              ))}
 
-{/* LOGO */}
+              {cards.length === 0 && (
+                <li className="dropdown-empty">
+                  Keine Karten vorhanden
+                </li>
+              )}
 
-<div className="navbar-logo">
+            </ul>
+          </li>
 
+          <NavbarItem
+            to="/galerie"
+            text="Galerie"
+            icon={faImage}
+            close={closeNavigation}
+          />
 
-<NavLink 
-to="/"
-onClick={()=>setBurgerMenuActive(false)}
->
+          {!isLoggedIn ? (
+            <NavbarItem
+              to="/login"
+              text="Login"
+              icon={faSignInAlt}
+              close={closeNavigation}
+            />
+          ) : (
+            <li>
+              <button
+                className="logout-button"
+                onClick={handleLogout}
+              >
+                <FontAwesomeIcon icon={faSignOutAlt} />
+                Logout
+              </button>
+            </li>
+          )}
 
-
-{
-
-logoUrl ?
-
-<img
-src={logoUrl}
-alt="Restaurant Langhaus Logo"
-/>
-
-:
-
-<span>
-Langhaus
-</span>
-
+        </ul>
+      </div>
+    </nav>
+  );
 }
 
-
-</NavLink>
-
-
-</div>
-
-
-
-
-
-{/* BURGER */}
-
-<button
-className="burger-button"
-onClick={(e)=>{
-
-e.stopPropagation();
-
-setBurgerMenuActive(
-!burgerMenuActive
-);
-
-}}
-
->
-
-
-<FontAwesomeIcon icon={faBars}/>
-
-
-</button>
-
-
-
-
-
-
-{/* MENU */}
-
-
-<ul className={`navbar-links ${burgerMenuActive ? "active":""}`}>
-
-
-
-<NavbarItem
-to="/"
-text="Home"
-icon={faHome}
-close={setBurgerMenuActive}
-/>
-
-
-
-<NavbarItem
-to="https://www.lunchgate.ch/restaurant/langhaus/"
-text="Reservation"
-icon={faCalendarCheck}
-close={setBurgerMenuActive}
-/>
-
-
-
-<NavbarItem
-to="/cards"
-text="Karten"
-icon={faBook}
-close={setBurgerMenuActive}
-/>
-
-
-
-
-<NavbarItem
-to="/galerie"
-text="Galerie"
-icon={faImage}
-close={setBurgerMenuActive}
-/>
-
-
-
-
-
-{
-
-!isLoggedIn ?
-
-
-<NavbarItem
-to="/login"
-text="Login"
-icon={faSignInAlt}
-close={setBurgerMenuActive}
-/>
-
-
-:
-
-<li>
-
-
-<button
-className="logout-button"
-onClick={handleLogout}
->
-
-
-<FontAwesomeIcon icon={faSignOutAlt}/>
-
-Logout
-
-
-</button>
-
-
-</li>
-
-
+function NavbarItem({ to, text, icon, close }) {
+  return (
+    <li>
+      <NavLink
+        to={to}
+        className={({ isActive }) =>
+          `navbar-link ${isActive ? "active" : ""}`
+        }
+        onClick={close}
+      >
+        <FontAwesomeIcon icon={icon} />
+        <span>{text}</span>
+      </NavLink>
+    </li>
+  );
 }
-
-
-
-
-</ul>
-
-
-
-</div>
-
-
-</nav>
-
-);
-
-
-}
-
-
-
-
-
-function NavbarItem({
-to,
-text,
-icon,
-close
-}){
-
-
-return(
-
-<li>
-
-
-<NavLink
-
-to={to}
-
-className={({isActive})=>
-
-`navbar-link ${isActive ? "active":""}`
-
-}
-
-
-onClick={()=>close(false)}
-
->
-
-
-<FontAwesomeIcon icon={icon}/>
-
-
-<span>
-{text}
-</span>
-
-
-</NavLink>
-
-
-</li>
-
-
-);
-
-
-}
-
-
 
 export default Navbar;
