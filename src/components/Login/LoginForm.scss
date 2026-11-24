@@ -1,496 +1,167 @@
+
 .login-container {
-
-
-  min-height:100vh;
-
-  width:100%;
-
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-
-
-  background:
-
-  linear-gradient(
-    135deg,
-    #111,
-    #1f1f1f
-  );
-
-
-  padding:30px;
-
-
-
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 20px;
+  background: #faf9f6;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-
-
-
-
-
-/* ==========================
-   LOGIN CARD
-========================== */
-
-
-.login-form {
-
-
-  width:100%;
-
-  max-width:450px;
-
-
-
-  padding:50px 45px;
-
-
-
-  background:
-
-  rgba(255,255,255,.06);
-
-
-
-  backdrop-filter:
-
-  blur(18px);
-
-
-
-  border-radius:25px;
-
-
-
-  border:
-
-  1px solid rgba(255,255,255,.12);
-
-
-
-  box-shadow:
-
-
-  0 30px 80px rgba(0,0,0,.45);
-
-
-
-  animation:
-
-  loginFade .5s ease;
-
-
-
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 48px 45px;
+  background: #ffffff;
+  border: 1px solid #eee9df;
+  box-sizing: border-box;
 }
 
-
-
-
-@keyframes loginFade {
-
-
-from {
-
-opacity:0;
-
-transform:translateY(30px);
-
+.login-eyebrow {
+  color: #a8874a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom: 22px;
 }
 
+.login-decoration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 22px;
 
-to {
+  span {
+    width: 5px;
+    height: 5px;
+    border: 1px solid #a8874a;
+    transform: rotate(45deg);
+  }
 
-opacity:1;
-
-transform:translateY(0);
-
+  span:nth-child(2) {
+    width: 8px;
+    height: 8px;
+    background: #a8874a;
+  }
 }
-
-
-}
-
-
-
-
-
-
-
-/* ==========================
- TITLE
-========================== */
-
 
 .login-title {
-
-
-  margin:0 0 40px;
-
-
-  text-align:center;
-
-
-  color:white;
-
-
-  font-size:42px;
-
-
-
-  font-family:
-
-  "Georgia",
-  serif;
-
-
-
-  letter-spacing:3px;
-
-
-
-  text-transform:uppercase;
-
-
-
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: #292929;
+  text-align: center;
+  margin: 0 0 14px;
 }
 
-
-
-.login-title::after {
-
-
-  content:"";
-
-
-  display:block;
-
-
-  width:70px;
-
-
-  height:3px;
-
-
-  margin:20px auto 0;
-
-
-
-  background:
-
-  linear-gradient(
-    90deg,
-    #b9934b,
-    #e5c477
-  );
-
-
+.login-description {
+  color: #858078;
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+  margin: 0 0 35px;
 }
 
-
-
-
-
-
-
-/* ==========================
- FORM
-========================== */
-
+.login-form {
+  width: 100%;
+}
 
 .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 23px;
 
+  label {
+    color: #494640;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 9px;
+  }
 
-  margin-bottom:25px;
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 14px;
+    background: #faf9f6;
+    border: 1px solid #e6e1d8;
+    border-radius: 0;
+    color: #292929;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
 
+    &::placeholder {
+      color: #aaa49a;
+    }
 
+    &:focus {
+      border-color: #a8874a;
+      background: #ffffff;
+    }
+  }
 }
-
-
-
-
-
-.form-label {
-
-
-  display:block;
-
-
-  margin-bottom:10px;
-
-
-  color:#ddd;
-
-
-  font-size:15px;
-
-
-  font-weight:600;
-
-
-}
-
-
-
-
-
-
-.form-input {
-
-
-  width:100%;
-
-
-  padding:15px 18px;
-
-
-
-  border-radius:14px;
-
-
-
-  border:
-
-  1px solid rgba(255,255,255,.15);
-
-
-
-  background:
-
-  rgba(0,0,0,.35);
-
-
-
-  color:white;
-
-
-
-  font-size:16px;
-
-
-
-  outline:none;
-
-
-
-  transition:.3s;
-
-
-
-  box-sizing:border-box;
-
-
-
-}
-
-
-
-
-.form-input:focus {
-
-
-  border-color:#d4af37;
-
-
-
-  box-shadow:
-
-  0 0 0 3px rgba(212,175,55,.15);
-
-
-}
-
-
-
-
-
-
-
-/* ==========================
- ERROR
-========================== */
-
 
 .error-message {
-
-
-  margin:20px 0;
-
-
-
-  padding:15px;
-
-
-
-  border-radius:12px;
-
-
-
-  background:
-
-  rgba(180,0,0,.25);
-
-
-
-  border:
-
-  1px solid rgba(255,0,0,.35);
-
-
-
-  color:#ffb3b3;
-
-
-
-  text-align:center;
-
-
-
-  font-size:14px;
-
-
+  padding: 13px 15px;
+  margin-bottom: 20px;
+  background: #fbf4f2;
+  border: 1px solid #eadbd8;
+  color: #a45c52;
+  font-size: 12px;
+  line-height: 1.6;
 }
-
-
-
-
-
-
-
-
-/* ==========================
- BUTTON
-========================== */
-
 
 .submit-button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 5px;
+  background: #a8874a;
+  border: 1px solid #a8874a;
+  border-radius: 0;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
 
+  &:hover:not(:disabled) {
+    background: #8e703d;
+    border-color: #8e703d;
+  }
 
-  width:100%;
-
-
-  margin-top:15px;
-
-
-
-  padding:16px;
-
-
-
-  border:none;
-
-
-
-  border-radius:50px;
-
-
-
-  cursor:pointer;
-
-
-
-  font-size:17px;
-
-
-
-  font-weight:700;
-
-
-
-  letter-spacing:1px;
-
-
-
-  color:#111;
-
-
-
-  background:
-
-
-  linear-gradient(
-    135deg,
-    #b9934b,
-    #e5c477
-  );
-
-
-
-  transition:.3s ease;
-
-
-
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
 }
 
-
-
-
-.submit-button:hover {
-
-
-  transform:
-
-  translateY(-3px);
-
-
-
-  box-shadow:
-
-
-  0 15px 35px rgba(0,0,0,.4);
-
-
-
+.login-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee9df;
+  color: #aaa49a;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
+@media (max-width: 500px) {
+  .login-container {
+    padding: 40px 15px;
+  }
 
+  .login-card {
+    padding: 35px 23px;
+  }
 
-
-
-
-
-
-/* ==========================
- MOBILE
-========================== */
-
-
-@media(max-width:600px){
-
-
-
-.login-container {
-
-
-padding:20px;
-
-
-}
-
-
-
-.login-form {
-
-
-padding:40px 25px;
-
-
-}
-
-
-
-.login-title {
-
-
-font-size:32px;
-
-
-}
-
-
-
+  .login-title {
+    font-size: 29px;
+  }
 }

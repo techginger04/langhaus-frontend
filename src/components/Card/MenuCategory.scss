@@ -1,790 +1,616 @@
-/* =========================================
-   PREMIUM MENU CATEGORY DESIGN
-   RESTAURANT LANGHAUS STYLE
-========================================= */
-
-
-$gold: #c8a96a;
-$gold-dark: #9d7c3c;
-$dark: #181818;
-$text: #333;
-$light: #f8f6f2;
-$white: #ffffff;
-$danger: #b53a3a;
-
-
-
 .menu-card-view {
+  min-height: 100vh;
+  background: #faf9f6;
+  color: #292929;
+  padding: 70px 24px 100px;
+  font-family: Arial, sans-serif;
+}
 
-  min-height:100vh;
+.menu-category-container {
+  max-width: 1050px;
+  margin: 0 auto;
+}
 
-  padding:4rem 3rem;
+/* =========================
+   HEADER
+========================= */
 
-  background:
-  linear-gradient(
-    135deg,
-    #f8f6f2,
-    #ffffff
-  );
+.menu-category-header {
+  text-align: center;
+  padding: 35px 20px 65px;
 
-  font-family:"Poppins",sans-serif;
-
-  color:$text;
-
-
-
-/* =================================
-   TITLE
-================================= */
-
-
-h1 {
-
-  text-align:center;
-
-  font-size:3.2rem;
-
-  color:$dark;
-
-  font-weight:700;
-
-  margin-bottom:3rem;
-
-
-  letter-spacing:-1px;
-
-
-
-  &::after {
-
-    content:"";
-
-    display:block;
-
-    width:90px;
-
-    height:4px;
-
-    margin:20px auto;
-
-    background:$gold;
-
-    border-radius:30px;
-
+  .menu-category-eyebrow {
+    color: #a8874a;
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 20px;
   }
 
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(38px, 6vw, 62px);
+    font-weight: 400;
+    letter-spacing: -1.5px;
+    color: #292929;
+    margin: 0;
+  }
+
+  p {
+    color: #77736d;
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 550px;
+    margin: 22px auto 0;
+  }
 }
 
+.heading-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 25px 0;
 
+  span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #a8874a;
+    transform: rotate(45deg);
+  }
 
-
-
-
-/* =================================
-   PDF BUTTON
-================================= */
-
-
-.pdf-actions {
-
-display:flex;
-
-justify-content:center;
-
-margin-bottom:3rem;
-
+  span:nth-child(2) {
+    width: 8px;
+    height: 8px;
+    background: #a8874a;
+  }
+}
 
 .download-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding: 14px 24px;
+  background: #a8874a;
+  color: #fff;
+  border: 1px solid #a8874a;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
 
+  &:hover {
+    background: #8e703d;
+    border-color: #8e703d;
+  }
 
-background:
-linear-gradient(
-135deg,
-$gold,
-$gold-dark
-);
-
-
-color:white;
-
-border:none;
-
-padding:15px 35px;
-
-border-radius:50px;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-
-box-shadow:
-0 15px 40px rgba(200,169,106,.35);
-
-
-transition:.3s;
-
-
-
-&:hover {
-
-transform:translateY(-3px);
-
+  .pdf-icon {
+    font-size: 19px;
+    line-height: 1;
+  }
 }
 
-
-}
-
-
-}
-
-
-
-
-
-/* =================================
-   CATEGORY CREATE
-================================= */
-
+/* =========================
+   ADMIN BEREICH
+========================= */
 
 .new-category {
+  background: #fff;
+  border: 1px solid #eee9df;
+  padding: 30px;
+  margin-bottom: 55px;
 
+  .admin-section-heading {
+    margin-bottom: 22px;
+  }
 
-background:white;
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 25px;
+    margin: 8px 0 0;
+  }
 
-padding:2rem;
+  form {
+    display: flex;
+    gap: 12px;
+  }
 
-border-radius:25px;
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid #e6e1d8;
+    background: #faf9f6;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
 
-box-shadow:
-0 20px 50px rgba(0,0,0,.08);
-
-margin-bottom:3rem;
-
-
-
-h2 {
-
-color:$dark;
-
-margin-bottom:1.5rem;
-
-border-left:5px solid $gold;
-
-padding-left:15px;
-
+    &:focus {
+      border-color: #a8874a;
+    }
+  }
 }
 
-
-
-form {
-
-
-display:flex;
-
-gap:1rem;
-
-
-
-input {
-
-flex:1;
-
-padding:15px 20px;
-
-border-radius:12px;
-
-border:1px solid #ddd;
-
-font-size:15px;
-
-
-&:focus {
-
-outline:none;
-
-border-color:$gold;
-
+.admin-label {
+  color: #a8874a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
 }
 
+.button-primary {
+  padding: 14px 22px;
+  background: #a8874a;
+  color: #fff;
+  border: 1px solid #a8874a;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #8e703d;
+    border-color: #8e703d;
+  }
 }
 
+/* =========================
+   KATEGORIEN
+========================= */
 
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
-
-}
-
-
-
-
-
-
-/* =================================
-   CATEGORY CARD
-================================= */
-
 
 .category {
-
-
-background:white;
-
-
-border-radius:30px;
-
-
-padding:2.5rem;
-
-
-margin-bottom:3rem;
-
-
-box-shadow:
-
-0 25px 70px rgba(0,0,0,.08);
-
-
-
-h2 {
-
-
-font-size:2rem;
-
-color:$dark;
-
-
-margin-bottom:2rem;
-
-
-display:flex;
-
-align-items:center;
-
-
-&::before {
-
-content:"";
-
-width:10px;
-
-height:35px;
-
-background:$gold;
-
-border-radius:20px;
-
-margin-right:15px;
-
+  background: #fff;
+  border: 1px solid #eee9df;
+  padding: 40px 48px;
 }
 
-
+.category-card-name {
+  text-align: center;
+  color: #a8874a;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
 }
 
+.category-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 32px;
+
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: #292929;
+    text-align: center;
+    margin: 0;
+  }
+
+  .category-line {
+    height: 1px;
+    width: 55px;
+    background: #d9c9a8;
+  }
 }
 
-
-
-
-
-/* =================================
-   DISH LIST
-================================= */
-
+/* =========================
+   GERICHTE
+========================= */
 
 .category-gerichte {
-
-
-list-style:none;
-
-padding:0;
-
-margin:0;
-
-
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
 .gericht {
+  padding: 19px 0;
+  border-bottom: 1px solid #f0ede7;
 
-
-padding:1.5rem 0;
-
-
-border-bottom:
-
-1px solid #eee;
-
-
-
-&:last-child {
-
-border-bottom:none;
-
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
-
-
-
 .gericht-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
 
+.gericht-name-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-
+.gericht-nummer {
+  color: #a8874a;
+  font-size: 12px;
+  flex-shrink: 0;
+}
 
 .name {
-
-font-size:1.25rem;
-
-font-weight:700;
-
-color:$dark;
-
+  color: #292929;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
 }
-
-
 
 .preis {
-
-
-font-size:1.2rem;
-
-font-weight:700;
-
-color:$gold-dark;
-
-
+  color: #a8874a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  white-space: nowrap;
 }
-
-
-}
-
-
-
-
 
 .zutaten {
-
-
-margin-top:.8rem;
-
-color:#777;
-
-font-size:.95rem;
-
-line-height:1.6;
-
-
+  color: #88837b;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 7px;
+  max-width: 750px;
 }
-
-
-
-.actions {
-
-
-margin-top:1rem;
-
-
-display:flex;
-
-gap:1rem;
-
-
-
-button {
-
-
-border:none;
-
-padding:10px 22px;
-
-border-radius:30px;
-
-cursor:pointer;
-
-font-weight:600;
-
-background:$gold;
-
-color:white;
-
-
-
-}
-
-
-.danger {
-
-background:$danger;
-
-}
-
-
-}
-
-
-}
-
-
-
-
 
 .no-gerichte {
-
-
-color:#999;
-
-font-style:italic;
-
-padding:1rem;
-
+  text-align: center;
+  color: #918b82;
+  font-size: 14px;
+  padding: 25px 10px;
+  font-style: italic;
 }
 
-
-}
-
-
-
-
-
-/* =================================
-   ADD BUTTON
-================================= */
-
-
-.add-gericht {
-
-
-margin-top:2rem;
-
-
-background:
-
-linear-gradient(
-135deg,
-$gold,
-$gold-dark
-);
-
-
-border:none;
-
-
-color:white;
-
-
-padding:14px 30px;
-
-
-border-radius:50px;
-
-
-font-weight:700;
-
-
-cursor:pointer;
-
-
-box-shadow:
-
-0 15px 30px rgba(200,169,106,.3);
-
-
-
-transition:.3s;
-
-
-
-&:hover {
-
-transform:translateY(-3px);
-
-}
-
-
-}
-
-
-
-
-
-
-/* =================================
-   POPUPS
-================================= */
-
-
-.popup-overlay {
-
-
-position:fixed;
-
-inset:0;
-
-
-background:
-
-rgba(0,0,0,.65);
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-
-z-index:9999;
-
-
-}
-
-
-
-
-
-.popup-form {
-
-
-background:white;
-
-
-width:450px;
-
-
-max-width:90%;
-
-
-padding:3rem;
-
-
-border-radius:30px;
-
-
-box-shadow:
-
-0 30px 90px rgba(0,0,0,.4);
-
-
-
-animation:
-
-popup .3s ease;
-
-
-
-h2 {
-
-font-size:2rem;
-
-margin-bottom:2rem;
-
-color:$dark;
-
-
-}
-
-
-
-form {
-
-
-display:flex;
-
-flex-direction:column;
-
-gap:1rem;
-
-
-
-input {
-
-
-padding:15px 18px;
-
-
-border-radius:12px;
-
-
-border:1px solid #ddd;
-
-
-font-size:15px;
-
-
-
-&:focus {
-
-outline:none;
-
-border-color:$gold;
-
-}
-
-
-}
-
-
+/* =========================
+   ADMIN AKTIONEN
+========================= */
 
 .actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 13px;
 
+  button {
+    background: transparent;
+    border: 1px solid #e5dfd4;
+    color: #716b62;
+    padding: 7px 12px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 
-display:flex;
+    &:hover {
+      border-color: #a8874a;
+      color: #a8874a;
+    }
 
-gap:1rem;
+    &.danger {
+      color: #a45c52;
+      border-color: #eadbd8;
 
-margin-top:1rem;
-
-
-
-button {
-
-
-flex:1;
-
-padding:14px;
-
-border:none;
-
-border-radius:30px;
-
-font-weight:700;
-
-cursor:pointer;
-
-
+      &:hover {
+        background: #a45c52;
+        border-color: #a45c52;
+        color: #fff;
+      }
+    }
+  }
 }
 
+.add-gericht {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+  padding: 12px 17px;
+  background: #faf9f6;
+  color: #8e703d;
+  border: 1px solid #e9e1d3;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
+  span {
+    font-size: 20px;
+    line-height: 1;
+  }
 
-.primary {
-
-
-background:$gold;
-
-color:white;
-
+  &:hover {
+    background: #f2eee5;
+    border-color: #a8874a;
+  }
 }
 
+/* =========================
+   POPUP
+========================= */
 
-
-.ghost {
-
-
-background:#eee;
-
-
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(30, 29, 26, 0.65);
+  overflow-y: auto;
 }
 
+.popup-form {
+  width: 100%;
+  max-width: 490px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  padding: 38px;
+  border: 1px solid #e9e1d3;
 
+  .popup-heading {
+    margin-bottom: 27px;
+
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 29px;
+      font-weight: 400;
+      margin: 10px 0;
+      color: #292929;
+    }
+
+    p {
+      color: #88837b;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+
+    label {
+      color: #55514b;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 14px;
+      background: #faf9f6;
+      border: 1px solid #e6e1d8;
+      color: #292929;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: #a8874a;
+      }
+
+      &::placeholder {
+        color: #aaa49a;
+      }
+    }
+  }
 }
 
+.popup-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
 
+  button {
+    flex: 1;
+    padding: 14px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
+  .button-secondary {
+    background: #fff;
+    color: #777168;
+    border: 1px solid #e5dfd4;
+
+    &:hover {
+      background: #faf9f6;
+      border-color: #a8874a;
+    }
+  }
 }
 
+/* =========================
+   LEERER ZUSTAND
+========================= */
 
+.empty-menu {
+  text-align: center;
+  padding: 65px 20px;
+  background: #fff;
+  border: 1px solid #eee9df;
+
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+    font-weight: 400;
+  }
+
+  p {
+    color: #88837b;
+    font-size: 14px;
+  }
 }
 
+/* =========================
+   FEHLER
+========================= */
 
+.menu-category-error {
+  padding: 18px 20px;
+  margin-bottom: 30px;
+  background: #fff;
+  border: 1px solid #eadbd8;
+  color: #a45c52;
+  font-size: 14px;
 
-
+  button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: transparent;
+    color: #a45c52;
+    border: 1px solid #eadbd8;
+    cursor: pointer;
+  }
 }
 
+/* =========================
+   LOADING
+========================= */
 
+.menu-category-loading {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: #faf9f6;
+  color: #77736d;
+  font-size: 14px;
 
-
-
-@keyframes popup {
-
-
-from {
-
-opacity:0;
-
-transform:scale(.85);
-
+  .loading-spinner {
+    width: 34px;
+    height: 34px;
+    border: 2px solid #e8e1d5;
+    border-top-color: #a8874a;
+    border-radius: 50%;
+    animation: menuSpin 0.8s linear infinite;
+  }
 }
 
-
-to {
-
-opacity:1;
-
-transform:scale(1);
-
+@keyframes menuSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-
-}
-
-
-
-
-
-
-/* =================================
+/* =========================
    RESPONSIVE
-================================= */
+========================= */
 
+@media (max-width: 700px) {
+  .menu-card-view {
+    padding: 35px 15px 65px;
+  }
 
-@media(max-width:900px){
+  .menu-category-header {
+    padding: 30px 5px 45px;
 
+    h1 {
+      font-size: 40px;
+    }
 
-.menu-card-view {
+    p {
+      font-size: 14px;
+    }
+  }
 
+  .new-category {
+    padding: 22px 18px;
 
-padding:2rem 1rem;
+    form {
+      flex-direction: column;
+    }
 
+    .button-primary {
+      width: 100%;
+    }
+  }
 
+  .category {
+    padding: 28px 20px;
+  }
 
-h1 {
+  .category-heading {
+    gap: 12px;
 
-font-size:2.2rem;
+    h2 {
+      font-size: 25px;
+    }
 
+    .category-line {
+      width: 25px;
+    }
+  }
+
+  .gericht-row {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .gericht-name-wrapper {
+    gap: 8px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .preis {
+    font-size: 15px;
+  }
+
+  .zutaten {
+    font-size: 12px;
+  }
+
+  .popup-form {
+    padding: 27px 20px;
+  }
+
+  .popup-actions {
+    flex-direction: column;
+  }
 }
 
+@media (max-width: 400px) {
+  .gericht-row {
+    flex-direction: column;
+    gap: 5px;
+  }
 
+  .preis {
+    margin-left: 0;
+  }
 
-
-.category {
-
-
-padding:1.5rem;
-
-}
-
-
-
-
-.gericht-row {
-
-
-flex-direction:column;
-
-align-items:flex-start;
-
-gap:.7rem;
-
-
-}
-
-
-
-.new-category form {
-
-
-flex-direction:column;
-
-}
-
-
-
-}
-
-
+  .download-pdf {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 10px;
+  }
 }
