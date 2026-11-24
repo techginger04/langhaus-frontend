@@ -48,7 +48,7 @@ function Navbar() {
     fetchLogo();
   }, []);
 
-  // Speisekarten automatisch aus der Datenbank laden
+  // Speisekarten laden
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -62,7 +62,7 @@ function Navbar() {
     fetchCards();
   }, []);
 
-  // Menü schliessen, wenn ausserhalb geklickt wird
+  // Navigation schliessen
   useEffect(() => {
     const closeMenu = (event) => {
       if (!event.target.closest(".navbar")) {
@@ -103,7 +103,7 @@ function Navbar() {
             {logoUrl ? (
               <img src={logoUrl} alt="Restaurant Langhaus Logo" />
             ) : (
-              <span>Langhaus</span>
+              <span>LANGHAUS</span>
             )}
           </NavLink>
         </div>
@@ -116,6 +116,7 @@ function Navbar() {
             setBurgerMenuActive(!burgerMenuActive);
           }}
           aria-label="Navigation öffnen"
+          aria-expanded={burgerMenuActive}
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
@@ -134,7 +135,7 @@ function Navbar() {
           <li>
             <a
               href="https://www.lunchgate.ch/restaurant/langhaus/"
-              className="navbar-link"
+              className="navbar-link reservation-link"
               onClick={closeNavigation}
               target="_blank"
               rel="noopener noreferrer"
@@ -144,7 +145,7 @@ function Navbar() {
             </a>
           </li>
 
-          {/* ANGEBOT MIT DYNAMISCHEN KARTEN */}
+          {/* ANGEBOT */}
           <li className={`navbar-dropdown ${angebotOpen ? "dropdown-open" : ""}`}>
 
             <button
